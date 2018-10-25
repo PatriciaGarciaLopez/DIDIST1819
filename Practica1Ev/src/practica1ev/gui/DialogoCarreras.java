@@ -3,19 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package practica1ev;
+package practica1ev.gui;
+
+import java.util.Date;
+import practica1ev.dto.Carrera;
 
 /**
  *
  * @author abago
  */
 public class DialogoCarreras extends javax.swing.JDialog {
-
+private PantallaPrincipal pantallaPrincipal;
     /**
      * Creates new form DialogoCarreras
      */
     public DialogoCarreras(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        pantallaPrincipal=(PantallaPrincipal)parent;
         initComponents();
     }
 
@@ -51,6 +55,11 @@ public class DialogoCarreras extends javax.swing.JDialog {
         jLabelNumeroMaxParticipantes.setText("Número máximo de participantes");
 
         jButtonAltaCarreras.setText("Alta");
+        jButtonAltaCarreras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAltaCarrerasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -105,6 +114,19 @@ public class DialogoCarreras extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonAltaCarrerasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAltaCarrerasActionPerformed
+        
+        String nombre= jTextFieldNombreCarrera.getText();
+        Date fecha=(Date)jSpinnerFechaCarrera.getValue();
+        String lugar=jTextFieldLugarCarrera.getText();
+        int maxParticipantes= (Integer)jSpinnerNumeroMaxParticipantes.getValue();
+        
+        Carrera carrera=new Carrera(nombre, fecha, lugar, maxParticipantes);
+        pantallaPrincipal.AniadirCarrera(carrera);
+        
+        setVisible(false);
+    }//GEN-LAST:event_jButtonAltaCarrerasActionPerformed
 
     /**
      * @param args the command line arguments

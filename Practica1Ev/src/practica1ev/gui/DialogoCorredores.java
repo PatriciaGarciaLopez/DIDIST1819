@@ -3,19 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package practica1ev;
+package practica1ev.gui;
+
+import practica1ev.dto.Corredor;
+import java.util.Date;
 
 /**
  *
  * @author abago
  */
 public class DialogoCorredores extends javax.swing.JDialog {
+   private PantallaPrincipal pantallaPrincipal;
 
     /**
      * Creates new form DialogoCorredores
      */
     public DialogoCorredores(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        pantallaPrincipal=(PantallaPrincipal)parent;
         initComponents();
     }
 
@@ -143,10 +148,19 @@ public class DialogoCorredores extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAltaActionPerformed
+       String nombre=jTextFieldNombre.getText();
+       String dni= jTextFieldDni.getText();
+       Date fechaNacimiento=(Date)jSpinnerFechaNacimiento.getValue();
+       String direccion=jTextFieldDireccion.getText();
+       int telefono= Integer.valueOf((jTextFieldTelefono.getText()));
+       
+       Corredor corredor=new Corredor(nombre, dni, fechaNacimiento, direccion, telefono);
+      pantallaPrincipal.AniadirCorredor(corredor);
         setVisible(false);
+        
     }//GEN-LAST:event_jButtonAltaActionPerformed
 
-    /**000
+    /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {

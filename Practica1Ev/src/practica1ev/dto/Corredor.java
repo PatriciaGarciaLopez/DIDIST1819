@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package practica1ev;
+package practica1ev.dto;
 
 import java.util.Date;
 

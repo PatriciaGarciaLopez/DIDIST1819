@@ -3,7 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package practica1ev;
+package practica1ev.gui;
+
+import practica1ev.dto.Corredor;
+import javax.swing.table.DefaultTableModel;
+import practica1ev.dto.Carrera;
 
 /**
  *
@@ -16,8 +20,32 @@ public class PantallaPrincipal extends javax.swing.JFrame {
      */
     public PantallaPrincipal() {
         initComponents();
+        InicializarTabla();
+        RellenarTabla();
+    }
+    
+    private void InicializarTabla(){
+        DefaultTableModel dtm= new DefaultTableModel();
+        dtm.setColumnIdentifiers(new String[]{"Nombre","DNI","Fecha de nacimiento","Dirección","Teléfono de contacto"});
+        jTableCorredores.setModel(dtm);
+    }
+    
+    public void AniadirCorredor(Corredor corredor){
+        DefaultTableModel dtm= (DefaultTableModel)jTableCorredores.getModel();
+        dtm.addRow(corredor.toArrayString());
     }
 
+    private void RellenarTabla(){
+        DefaultTableModel tabla=new DefaultTableModel();
+        tabla.setColumnIdentifiers(new String[]{"Nombre","Fecha","Lugar","Numero maximo participantes"});
+        jTableCarreras.setModel(tabla);
+    }
+    
+    public void AniadirCarrera(Carrera carrera){
+        DefaultTableModel tabla= (DefaultTableModel)jTableCarreras.getModel();
+        tabla.addRow(carrera.Array());
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,7 +58,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableCorredores = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTableCarreras = new javax.swing.JTable();
+        jLabelCorredores = new javax.swing.JLabel();
+        jLabelCarreras = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemAltaCorredores = new javax.swing.JMenuItem();
@@ -52,7 +82,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTableCorredores);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTableCarreras.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -63,7 +93,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(jTableCarreras);
+
+        jLabelCorredores.setText("Corredores");
+
+        jLabelCarreras.setText("Carreras");
 
         jMenu1.setText("Corredores");
 
@@ -80,6 +114,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jMenu2.setText("Carreras");
 
         jMenuItemAltaCarreras.setText("Alta");
+        jMenuItemAltaCarreras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemAltaCarrerasActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItemAltaCarreras);
 
         jMenuBar1.add(jMenu2);
@@ -94,15 +133,21 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelCorredores)
+                    .addComponent(jLabelCarreras))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(10, 10, 10)
+                .addComponent(jLabelCorredores)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55)
+                .addGap(30, 30, 30)
+                .addComponent(jLabelCarreras)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(56, Short.MAX_VALUE))
         );
@@ -114,6 +159,12 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         DialogoCorredores dialogoCorredores=new DialogoCorredores(this,true);
         dialogoCorredores.setVisible(true);
     }//GEN-LAST:event_jMenuItemAltaCorredoresActionPerformed
+
+    private void jMenuItemAltaCarrerasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAltaCarrerasActionPerformed
+        DialogoCarreras dialogoCarreras=new DialogoCarreras(this, true);
+        dialogoCarreras.setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItemAltaCarrerasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -151,6 +202,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabelCarreras;
+    private javax.swing.JLabel jLabelCorredores;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -158,7 +211,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemAltaCorredores;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTableCarreras;
     private javax.swing.JTable jTableCorredores;
     // End of variables declaration//GEN-END:variables
 }
